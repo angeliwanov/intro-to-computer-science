@@ -14,12 +14,25 @@
 */
 
 function insertionSort(nums) {
-  // code goes here
+  let counter = 0;
+  for (let i = 1; i < nums.length; i++) {
+    let numToInsert = nums[i];
+    for (let j = i; j >= 1 && nums[j] >= numToInsert; j--) {
+      counter++;
+      if (nums[j] < nums[j - 1]) {
+        let temp = nums[j];
+        nums[j] = nums[j - 1];
+        nums[j - 1] = temp;
+      }
+    }
+  }
+  console.log(counter);
+  return nums;
 }
 
 // unit tests
 // do not modify the below code
-test.skip("insertion sort", function () {
+test("insertion sort", function () {
   const nums = [10, 5, 3, 8, 2, 6, 4, 7, 9, 1];
   insertionSort(nums);
   expect(nums).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
