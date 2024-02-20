@@ -9,13 +9,22 @@
  
  */
 
+//flatten the array array.slice(0,i).concat(...array[i]).concat(array.slice(i+1, array.length))
+
 function nestedAdd(array) {
-  // write code here
+  let sum = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (!Array.isArray(array[i])) {
+      sum += array[i];
+    }
+    sum += nestedAdd(array[i]);
+  }
+  return sum;
 }
 
-test.skip("nested arrays addition", () => {
-  expect(nestedAdd([1, 2, 3])).toEqual(6);
+test("nested arrays addition", () => {
   expect(nestedAdd([1, [2], 3])).toEqual(6);
+  expect(nestedAdd([1, 2, 3])).toEqual(6);
   expect(nestedAdd([[[[[[[[[5]]]]]]]]])).toEqual(5);
   expect(nestedAdd([10, [12, 14, [1], [16, [20]]], 10, 11])).toEqual(94);
 });
