@@ -30,10 +30,13 @@ class ArrayList {
   }
 
   pop() {
-    const popped = this.data[this.length - 1];
-    delete this.data[this.length - 1];
-    this.length--;
-    return popped;
+    if (this.length > 0) {
+      const popped = this.data[this.length - 1];
+      delete this.data[this.length - 1];
+      this.length--;
+      return popped;
+    }
+    return null;
   }
 
   get(index) {
@@ -41,14 +44,17 @@ class ArrayList {
   }
 
   delete(index) {
+    const res = this.data[index];
     delete this.data[index];
-    const result = {};
+    const newArray = {};
     this.length = 0;
     for (const [k, v] of Object.entries(this.data)) {
-      result[this.length] = v;
+      newArray[this.length] = v;
       this.length++;
     }
-    this.data = { ...result };
+    this.data = { ...newArray };
+
+    return res;
   }
 }
 
@@ -79,7 +85,6 @@ describe("ArrayList", function () {
     expect(list.length).toEqual(13);
     range(10).map(() => list.pop());
     expect(list.length).toEqual(3);
-    console.log(list);
     expect(list.pop()).toEqual("c");
   });
 

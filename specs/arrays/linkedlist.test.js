@@ -31,16 +31,30 @@ class LinkedList {
   }
   push(value) {
     const node = new Node(value);
-    this.length++;
     if (!this.head) {
       this.head = node;
     } else {
       this.tail.next = node;
     }
+    this.length++;
     this.tail = node;
   }
   pop() {
-    return this.delete(this.length - 1);
+    if (!this.length) return null;
+    let current = this.head;
+    let newTail = current;
+    while (current.next) {
+      newTail = current;
+      current = current.next;
+    }
+    this.tail = newTail;
+    this.tail.next = null;
+    this.length--;
+    if (!this.length) {
+      this.head = 0;
+      this.tail = 0;
+    }
+    return current.value;
   }
   _find(index) {
     if (index >= this.length) return null;
