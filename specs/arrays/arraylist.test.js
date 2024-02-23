@@ -19,11 +19,42 @@
 
 class ArrayList {
   // code goes here
+  constructor() {
+    this.data = {};
+    this.length = 0;
+  }
+
+  push(value) {
+    this.data[this.length] = value;
+    this.length++;
+  }
+
+  pop() {
+    const popped = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return popped;
+  }
+
+  get(index) {
+    return this.data[index];
+  }
+
+  delete(index) {
+    delete this.data[index];
+    const result = {};
+    this.length = 0;
+    for (const [k, v] of Object.entries(this.data)) {
+      result[this.length] = v;
+      this.length++;
+    }
+    this.data = { ...result };
+  }
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("ArrayList", function () {
+describe("ArrayList", function () {
   const range = (length) =>
     Array.apply(null, { length: length }).map(Number.call, Number);
   const abcRange = (length) =>
@@ -48,6 +79,7 @@ describe.skip("ArrayList", function () {
     expect(list.length).toEqual(13);
     range(10).map(() => list.pop());
     expect(list.length).toEqual(3);
+    console.log(list);
     expect(list.pop()).toEqual("c");
   });
 
