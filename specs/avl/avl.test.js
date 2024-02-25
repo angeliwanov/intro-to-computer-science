@@ -76,11 +76,10 @@ class Node {
     const rightHeight = this.right ? this.right.height : 0;
     const leftHeight = this.left ? this.left.height : 0;
 
-    //check for double rotation
     if (leftHeight > rightHeight + 1) {
+      //check for double rotation
       const leftRightHeight = this.left.right ? this.left.right.height : 0;
       const leftLeftHeight = this.left.left ? this.left.left.height : 0;
-
       //double rotation
       if (leftRightHeight > leftLeftHeight) {
         this.left.rotateRR();
